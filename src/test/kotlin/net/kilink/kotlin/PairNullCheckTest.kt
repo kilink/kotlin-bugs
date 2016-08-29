@@ -20,4 +20,16 @@ class PairNullCheckTest {
         // This gets highlighted as a syntax issue in IntelliJ, but compiles and runs fine
         assertTrue(x.first < x.second)
     }
+
+    @Test
+    fun testDataClass() {
+        data class Foobar(val x: Int?, val y: Int)
+
+        val foo: Foobar = Foobar(1, 2)
+
+        if (foo.x == null) throw IllegalArgumentException()
+
+        // No warning for data class
+        assertTrue(foo.x < foo.y)
+    }
 }
